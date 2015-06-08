@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="UserLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserLoginResult" type="tns:T_Operat_User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="T_Operat_User">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OperatID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PassWord" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OperatName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Active" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OperatGroup" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="GroupName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetOperatList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetOperatListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOperatListResult" type="tns:ArrayOfT_Operat_User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfT_Operat_User">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="T_Operat_User" nillable="true" type="tns:T_Operat_User" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveOrUpdateOperat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OperatName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Tel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Active" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OperatGroup" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OperatID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOrUpdateOperatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SaveOrUpdateOperatResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UserLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:UserLogin" />
+  </wsdl:message>
+  <wsdl:message name="UserLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:UserLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOperatListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOperatList" />
+  </wsdl:message>
+  <wsdl:message name="GetOperatListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOperatListResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrUpdateOperatSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOrUpdateOperat" />
+  </wsdl:message>
+  <wsdl:message name="SaveOrUpdateOperatSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOrUpdateOperatResponse" />
+  </wsdl:message>
+  <wsdl:portType name="OperatServicesSoap">
+    <wsdl:operation name="UserLogin">
+      <wsdl:input message="tns:UserLoginSoapIn" />
+      <wsdl:output message="tns:UserLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOperatList">
+      <wsdl:input message="tns:GetOperatListSoapIn" />
+      <wsdl:output message="tns:GetOperatListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrUpdateOperat">
+      <wsdl:input message="tns:SaveOrUpdateOperatSoapIn" />
+      <wsdl:output message="tns:SaveOrUpdateOperatSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OperatServicesSoap" type="tns:OperatServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UserLogin">
+      <soap:operation soapAction="http://tempuri.org/UserLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOperatList">
+      <soap:operation soapAction="http://tempuri.org/GetOperatList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrUpdateOperat">
+      <soap:operation soapAction="http://tempuri.org/SaveOrUpdateOperat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="OperatServicesSoap12" type="tns:OperatServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UserLogin">
+      <soap12:operation soapAction="http://tempuri.org/UserLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOperatList">
+      <soap12:operation soapAction="http://tempuri.org/GetOperatList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOrUpdateOperat">
+      <soap12:operation soapAction="http://tempuri.org/SaveOrUpdateOperat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OperatServices">
+    <wsdl:port name="OperatServicesSoap" binding="tns:OperatServicesSoap">
+      <soap:address location="http://localhost:62386/Services/OperatServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="OperatServicesSoap12" binding="tns:OperatServicesSoap12">
+      <soap12:address location="http://localhost:62386/Services/OperatServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
